@@ -167,3 +167,60 @@ terraform apply  # This will take 60-90 minutes
 ```
 
 The most critical prerequisite is having access to the AWS Organizations management account with sufficient permissions. Everything else can be installed or configured relatively quickly.
+
+I'll create a comprehensive Terraform script that walks through the AWS Control Tower workshop. This will include setting up Control Tower, organizational units, accounts, and guardrails as covered in the workshop.
+
+I've created a comprehensive Terraform script that implements the key components covered in the AWS Control Tower workshop. Here's what the script includes:
+
+## Key Components
+
+**Core Infrastructure:**
+- AWS Organizations setup with required service access principals
+- Control Tower Landing Zone with centralized logging and governance
+- KMS encryption key for Control Tower services
+
+**Account Structure:**
+- Log Archive account for centralized logging
+- Audit account for security monitoring
+- Configurable workload accounts for different environments
+
+**Organizational Units:**
+- Security OU for core accounts
+- Sandbox OU for development/testing
+- Production OU for production workloads
+
+**Governance & Compliance:**
+- Service Control Policies (SCPs) for root access denial and MFA requirements
+- Control Tower Controls (guardrails) for CloudTrail, Config, and IAM
+- CloudFormation StackSets for baseline security configurations
+
+## Usage Instructions
+
+1. **Set up your variables** by creating a `terraform.tfvars` file:
+```hcl
+organization_name = "MyCompany"
+control_tower_home_region = "us-east-1"
+logging_account_email = "aws-logs@mycompany.com"
+audit_account_email = "aws-audit@mycompany.com"
+workload_account_emails = [
+  "aws-dev@mycompany.com",
+  "aws-staging@mycompany.com"
+]
+```
+
+2. **Initialize and apply:**
+```bash
+terraform init
+terraform plan
+terraform apply
+```
+
+## Important Notes
+
+- **Prerequisites:** You need to be using the management account of an AWS Organization
+- **Email Requirements:** Each account needs a unique email address
+- **Permissions:** Ensure your AWS credentials have sufficient permissions for Organizations and Control Tower
+- **Time:** Control Tower deployment can take 60+ minutes
+- **Regions:** The script sets up governance in us-east-1 and us-west-2 by default
+
+The script follows AWS best practices and implements the multi-account governance structure that's central to the Control Tower workshop experience.
