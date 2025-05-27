@@ -168,10 +168,6 @@ terraform apply  # This will take 60-90 minutes
 
 The most critical prerequisite is having access to the AWS Organizations management account with sufficient permissions. Everything else can be installed or configured relatively quickly.
 
-I'll create a comprehensive Terraform script that walks through the AWS Control Tower workshop. This will include setting up Control Tower, organizational units, accounts, and guardrails as covered in the workshop.
-
-I've created a comprehensive Terraform script that implements the key components covered in the AWS Control Tower workshop. Here's what the script includes:
-
 ## Key Components
 
 **Core Infrastructure:**
